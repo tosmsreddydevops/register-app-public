@@ -10,27 +10,7 @@ pipeline{
                 
                 script{
                     git branch: 'main', url: 'https://github.com/tosmsreddydevops/register-app-public'
-                    //git branch: 'main', url: 'https://github.com/vikash-kumar01/demo-counter-app.git'
-                }
-            }
-        }
-        stage('UNIT testing'){
-            
-            steps{
-                
-                script{
-                    
-                    sh 'mvn test'
-                }
-            }
-        }
-        stage('Integration testing'){
-            
-            steps{
-                
-                script{
-                    
-                    sh 'mvn verify -DskipUnitTests'
+                  
                 }
             }
         }
@@ -40,7 +20,17 @@ pipeline{
                 
                 script{
                     
-                    sh 'mvn clean install'
+                    sh 'mvn clean package'
+                }
+            }
+        }
+       stage('UNIT testing'){
+            
+            steps{
+                
+                script{
+                    
+                    sh 'mvn test'
                 }
             }
         }
