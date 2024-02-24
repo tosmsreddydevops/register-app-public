@@ -15,6 +15,7 @@ pipeline {
 	    JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
 	    GIT_HOME = tool 'git2'
     }
+    stages{
 
 
         stage("Build Application"){
