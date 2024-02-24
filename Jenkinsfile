@@ -52,22 +52,25 @@ pipeline{
             }
 
         }
-
-        stage("Build & Push Docker Image") {
+      stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image = docker.build "${IMAGE_NAME}"
-                    }
-
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image.push("${IMAGE_TAG}")
-                        docker_image.push('latest')
-                    }
+                  sh 'docker build -t tosmsreddydevops/my-app-1.0 .'
                 }
             }
+        }
+        stage('Deploy Docker Image') {
+            steps {
+                script {
+                 withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubpwd')]) {
+                    sh 'docker login -u devopshint -p ${dockerhubpwd}'
+                 }  
+                 sh 'docker push tosmsreddydevops/my-app-1.0'
+                }
+            }
+        }
 
-       }
+        
 
        stage("Trivy Scan") {
            steps {
