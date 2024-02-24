@@ -3,7 +3,7 @@ pipeline {
     tools {
         jdk 'Java17'
         maven 'Maven3'
-	git 'git'
+	git 'git2'
     }
     environment {
 	    APP_NAME = "register-app-pipeline"
