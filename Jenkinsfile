@@ -22,11 +22,11 @@ pipeline {
                 }
         }
 
-        stage("Checkout from SCM"){
-                steps {
-                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/tosmsreddydevops/register-app-public'
-                }
-        }
+    #    stage("Checkout from SCM"){
+    #            steps {
+    #                git branch: 'main', credentialsId: 'github', url: 'https://github.com/tosmsreddydevops/register-app-public'
+    #            }
+    #    }
 
         stage("Build Application"){
             steps {
