@@ -15,17 +15,7 @@ pipeline {
 	    JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
 	    GIT_HOME = tool 'git2'
     }
-    stages{
-        stage("Cleanup Workspace"){
-                steps {
-                cleanWs()
-                }
-        }
-        stage("Checkout from SCM"){
-                steps {
-                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/tosmsreddydevops/register-app-public'
-                }
-        }
+
 
         stage("Build Application"){
             steps {
