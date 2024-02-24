@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'agent1' }
+    agent { label 'agent2' }
     tools {
         jdk 'Java17'
         maven 'Maven3'
@@ -13,7 +13,7 @@ pipeline {
             IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
             IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
 	    JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
-	    GIT_HOME = tool 'git2'
+	    GIT_HOME = tool 'git'
     }
     stages{
         stage("Cleanup Workspace"){
