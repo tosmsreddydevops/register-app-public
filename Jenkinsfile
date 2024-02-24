@@ -1,46 +1,50 @@
-pipeline {
-    agent { label 'agent2' }
-    tools {
-        jdk 'Java17'
-        maven 'Maven3'
-	git 'git'
-    }
-    environment {
-	    APP_NAME = "register-app-pipeline"
-            RELEASE = "1.0.0"
-            DOCKER_USER = "tosmsreddydevops"
-            DOCKER_PASS = 'dockerhub'
-            IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-            IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-	    JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
-	    GIT_HOME = tool 'git'
-    }
-    stages{
-        stage("Cleanup Workspace"){
-                steps {
-                cleanWs()
+pipeline{
+    
+    agent { label 'agent1' }
+    
+    stages {
+        
+        stage('Git Checkout'){
+            
+            steps{
+                
+                script{
+                    git branch: 'main', url: 'https://github.com/tosmsreddydevops/register-app-public'
+                    //git branch: 'main', url: 'https://github.com/vikash-kumar01/demo-counter-app.git'
                 }
-        }
-        stage("Checkout from SCM"){
-                steps {
-                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/tosmsreddydevops/register-app-public'
-                }
-        }
-
-        stage("Build Application"){
-            steps {
-                sh "mvn clean package"
             }
-
-       }
-
-       stage("Test Application"){
-           steps {
-                 sh "mvn test"
-           }
-       }
-
-       stage("SonarQube Analysis"){
+        }
+        stage('UNIT testing'){
+            
+            steps{
+                
+                script{
+                    
+                    sh 'mvn test'
+                }
+            }
+        }
+        stage('Integration testing'){
+            
+            steps{
+                
+                script{
+                    
+                    sh 'mvn verify -DskipUnitTests'
+                }
+            }
+        }
+        stage('Maven build'){
+            
+            steps{
+                
+                script{
+                    
+                    sh 'mvn clean install'
+                }
+            }
+        }
+    st  stage("SonarQube Analysis"){
            steps {
 	           script {
 		        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
