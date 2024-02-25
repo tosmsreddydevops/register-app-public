@@ -55,7 +55,7 @@ pipeline{
       stage('Build Docker Image') {
             steps {
                 script {
-                  sh 'docker build -t tosmsreddydevops/my-app-1.0.1 .'
+                  sh 'docker build -t tosmsreddydevops/my-app-1.0.2 .'
                 }
             }
         }
@@ -66,7 +66,7 @@ pipeline{
                     sh 'docker login -u tosmsreddydevops -p dckr_pat_cbMKApk91j46ckWQkbBUlSaBZV0'
 		   //    sh 'docker login'
                  //}  
-                 sh 'docker push tosmsreddydevops/my-app-1.0.1'
+                 sh 'docker push tosmsreddydevops/my-app-1.0.2'
                 }
             }
         }
@@ -76,7 +76,7 @@ pipeline{
        stage("Trivy Scan") {
            steps {
                script {
-	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ashfaque9x/register-app-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
+	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image tosmsreddydevops/my-app-1.0.2 --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
                }
            }
        }
