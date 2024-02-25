@@ -64,7 +64,7 @@ pipeline{
                 script {
                  //withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubpwd')]) {
                    // sh 'docker login -u tosmsreddydevops -p ${dockerhubpwd}'
-		       sh 'docker login'
+		   //    sh 'docker login'
                  //}  
                  sh 'docker push tosmsreddydevops/my-app-1.0'
                 }
