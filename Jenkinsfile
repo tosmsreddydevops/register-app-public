@@ -55,7 +55,7 @@ pipeline{
       stage('Build Docker Image') {
             steps {
                 script {
-                  sh 'docker build -t tosmsreddydevops/my-app-1.0 .'
+                  sh 'docker build -t tosmsreddydevops/my-app-1.0.1 .'
                 }
             }
         }
@@ -63,10 +63,10 @@ pipeline{
             steps {
                 script {
                  //withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubpwd')]) {
-                    sh 'docker login -u tosmsreddydevops -p dxxxxxxxxxx'
+                    sh 'docker login -u tosmsreddydevops -p dckr_pat_cbMKApk91j46ckWQkbBUlSaBZV0'
 		   //    sh 'docker login'
                  //}  
-                 sh 'docker push tosmsreddydevops/my-app-1.0'
+                 sh 'docker push tosmsreddydevops/my-app-1.0.1'
                 }
             }
         }
